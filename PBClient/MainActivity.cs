@@ -1,10 +1,8 @@
-﻿using System;
-using Android.App;
-using Android.Content;
-using Android.Runtime;
-using Android.Views;
+﻿using Android.App;
 using Android.Widget;
 using Android.OS;
+using PBClient.WSSClient;
+using System;
 
 namespace PBClient
 {
@@ -23,8 +21,15 @@ namespace PBClient
             // Get our button from the layout resource,
             // and attach an event to it
             Button button = FindViewById<Button>(Resource.Id.MyButton);
+            Button start = FindViewById<Button>(Resource.Id.Start);
+
+
 
             button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            start.Click += (object sender, EventArgs e) =>
+            {
+                SocketClient.Connect();
+            };
         }
     }
 }

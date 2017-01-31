@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="Hello">Hello World, Click Me!</string>
+    <string name="Hello">Connect to PB</string>
     <string name="ApplicationName">PBClient</string>
+    <string name="Start">Start WSS Listen</string>
 </resources>
