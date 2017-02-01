@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace PBClient.PBModels
+namespace PBClient.Models.Pushbullet
 {
     [DataContract]
     public class PushbulletStreamMessage

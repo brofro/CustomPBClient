@@ -1,8 +1,9 @@
 ﻿using Android.App;
 using Android.Widget;
 using Android.OS;
-using PBClient.WSSClient;
 using System;
+using PBClient.Communication.WssHelpers;
+using System.Threading;
 
 namespace PBClient
 {
@@ -28,7 +29,8 @@ namespace PBClient
             button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
             start.Click += (object sender, EventArgs e) =>
             {
-                SocketClient.Connect();
+                var pbWssThread = new Thread(new ThreadStart(PushbulletWebSocketClient.Connect));
+                //pbWssThread.Start();
             };
         }
     }
