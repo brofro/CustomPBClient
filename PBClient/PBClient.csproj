@@ -65,8 +65,12 @@
     <Compile Include="Communication\Routes\PushbulletRoutes.cs" />
     <Compile Include="Communication\WssHelpers\PushbulletWebsocketClient.cs" />
     <Compile Include="MainActivity.cs" />
+    <Compile Include="Models\Notification\PushbulletNotification.cs" />
+    <Compile Include="Models\Pushbullet\Enums\Subtype.cs" />
+    <Compile Include="Models\Pushbullet\Enums\Type.cs" />
     <Compile Include="Models\Pushbullet\GetPushesResponse.cs" />
     <Compile Include="Models\Pushbullet\Push.cs" />
+    <Compile Include="Models\Pushbullet\PushbulletConstants.cs" />
     <Compile Include="Models\Pushbullet\PushbulletStreamMessage.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

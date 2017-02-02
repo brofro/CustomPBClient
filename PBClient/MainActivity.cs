@@ -4,6 +4,7 @@ using Android.OS;
 using System;
 using PBClient.Communication.WssHelpers;
 using System.Threading;
+using Android.Content;
 
 namespace PBClient
 {
@@ -11,6 +12,7 @@ namespace PBClient
     public class MainActivity : Activity
     {
         int count = 1;
+        PushbulletWebSocketClient client = null;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -26,12 +28,19 @@ namespace PBClient
 
 
 
-            button.Click += delegate { button.Text = string.Format("{0} clicks!", count++); };
+            button.Click += delegate
+            {
+                button.Text = string.Format("{0} clicks!", count++);
+            };
+
             start.Click += (object sender, EventArgs e) =>
             {
-                var pbWssThread = new Thread(new ThreadStart(PushbulletWebSocketClient.Connect));
-                //pbWssThread.Start();
-            };
+                if (client == null)
+                {
+                    client = new PushbulletWebSocketClient("", this);
+                    client.Connect();
+                }
+            };            
         }
     }
 }
