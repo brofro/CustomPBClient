@@ -75,6 +75,7 @@ namespace PBClient.Communication.WssHelpers
                     //foreach (var action in notification.Selections)
                     //{
                     //    //TODO: Fix the pending intent here
+                    //    //Good ex here: https://shashikawlp.wordpress.com/2013/05/08/android-jelly-bean-notifications-with-actions/
                     //    builder.AddAction(new Notification.Action(Resource.Drawable.Icon, action,
                     //        PendingIntent.GetActivity(Application.Context, 0, null, PendingIntentFlags.NoCreate)));
                     //}
