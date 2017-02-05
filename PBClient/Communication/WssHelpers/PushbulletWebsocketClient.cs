@@ -11,6 +11,8 @@ using PBClient.Models.Notification;
 using System;
 using Android.App;
 using Android.Content;
+using PBClient.Communication.Receivers;
+using Android.OS;
 
 namespace PBClient.Communication.WssHelpers
 {
@@ -27,6 +29,7 @@ namespace PBClient.Communication.WssHelpers
             Context = context;
         }
 
+        #region Websocket Common
         public void Connect()
         {
             //TODO: See if this needs to be disposable
@@ -51,14 +54,16 @@ namespace PBClient.Communication.WssHelpers
 
         private void OnNewPush()
         {
-            var pushes = HttpHelper.GetHelper<GetPushesResponse>(PushbulletRoutes.GetRouteHttp(PushbulletRoutes.PushList), ApiKey).Result;
+            var pushes = HttpHelper.GetHelper<GetPushesResponse>(PushbulletRoutes.GetRouteHttp(PushbulletRoutes.Pushes), ApiKey).Result;
             var jsonBodyPushes = pushes.PushList.Where(x => x.Body.StartsWith("{") && x.Body.EndsWith("}"));
 
             //TODO: See why we can't call count here
             if (jsonBodyPushes != null)
                 SetNotification(jsonBodyPushes);
         }
+        #endregion
 
+        #region OnMessageHandling
         private void SetNotification(IEnumerable<Push> pushes)
         {
             foreach(var jsonPush in pushes)
@@ -72,13 +77,16 @@ namespace PBClient.Communication.WssHelpers
                         .SetSmallIcon(Resource.Drawable.Icon);
 
 
-                    //foreach (var action in notification.Selections)
-                    //{
-                    //    //TODO: Fix the pending intent here
-                    //    //Good ex here: https://shashikawlp.wordpress.com/2013/05/08/android-jelly-bean-notifications-with-actions/
-                    //    builder.AddAction(new Notification.Action(Resource.Drawable.Icon, action,
-                    //        PendingIntent.GetActivity(Application.Context, 0, null, PendingIntentFlags.NoCreate)));
-                    //}
+                    foreach (var action in notification.Selections)
+                    {
+                        //TODO: Fix the pending intent here
+                        //Good ex here: https://shashikawlp.wordpress.com/2013/05/08/android-jelly-bean-notifications-with-actions/
+                        builder.AddAction(new Notification.Action(
+                            Resource.Drawable.Icon,
+                            action.Label,
+                            GetPendingIntent<OkReceiver>(action.ToJsonString())                            
+                            ));
+                    }
 
                     var not = builder.Build();
                     var notificationManager = Context.GetSystemService(Context.NotificationService) as NotificationManager;
@@ -90,5 +98,24 @@ namespace PBClient.Communication.WssHelpers
                 }
             }
         }
+
+        private PendingIntent GetPendingIntent<T>(string actionJson)
+        {
+            var data = BuildBundle(actionJson);           
+            var intent = new Intent(Context, typeof(T));
+            intent.PutExtras(data);
+            var pendingIntent = PendingIntent.GetBroadcast(Context, 0, intent, PendingIntentFlags.UpdateCurrent);
+            return pendingIntent;
+        }
+
+        private Bundle BuildBundle(string actionJson)
+        {
+            var data = new Bundle();
+            data.PutString("actionJson", actionJson);
+            data.PutString("apiKey", ApiKey);
+            return data;
+        }
+
+        #endregion
     }
 }

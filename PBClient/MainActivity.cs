@@ -37,7 +37,7 @@ namespace PBClient
             {
                 if (client == null)
                 {
-                    client = new PushbulletWebSocketClient("", this);
+                    client = new PushbulletWebSocketClient("o.tkMiPOCsD6dbUA3fN8abQcOiDp12NX2z", this);
                     client.Connect();
                 }
             };            

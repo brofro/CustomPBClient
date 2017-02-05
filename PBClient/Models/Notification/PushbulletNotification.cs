@@ -1,3 +1,4 @@
+using PBClient.Models.Selections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -6,6 +7,10 @@ namespace PBClient.Models.Notification
     [DataContract]
     public class PushbulletNotification
     {
+        /**
+         * { "title": "From Dodd", "content": "Boba?", "selections": [{"receiver" : 1, "label" : "Daccord"}, {"receiver" : 1, "label" : "Cannot Be"} ] }
+         * 
+         **/
         [DataMember(Name ="title")]
         public string Title { get; set; }
 
@@ -13,6 +18,6 @@ namespace PBClient.Models.Notification
         public string Content { get; set; }
 
         [DataMember(Name ="selections")]
-        public IEnumerable<string> Selections { get; set; }
+        public IEnumerable<SelectionBase> Selections { get; set; }
     }
 }

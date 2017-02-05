@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Communication\HttpHelpers\HttpHelper.cs" />
+    <Compile Include="Communication\Receivers\OkReceiver.cs" />
     <Compile Include="Communication\Routes\PushbulletRoutes.cs" />
     <Compile Include="Communication\WssHelpers\PushbulletWebsocketClient.cs" />
     <Compile Include="MainActivity.cs" />
@@ -72,6 +73,8 @@
     <Compile Include="Models\Pushbullet\Push.cs" />
     <Compile Include="Models\Pushbullet\PushbulletConstants.cs" />
     <Compile Include="Models\Pushbullet\PushbulletStreamMessage.cs" />
+    <Compile Include="Models\Selections\Enums\ReceiverType.cs" />
+    <Compile Include="Models\Selections\SelectionBase.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

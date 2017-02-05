@@ -5,7 +5,7 @@ namespace PBClient.Communication.Routes
         public const string MainStream = "wss://stream.pushbullet.com/websocket";
         public const string MainRoute = "https://api.pushbullet.com/v2";
 
-        public const string PushList = "pushes";
+        public const string Pushes = "pushes";
 
         public static string GetRouteWss(string apiKey)
         {
